@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Http\Request;
+use PDF;
 
 class ProductController extends Controller
 {
@@ -127,5 +128,12 @@ class ProductController extends Controller
         $product->forceDelete();
         return redirect()->route('products.trash')->withMessage('Permanently deleted');
 
+    }
+
+    public function downloadPdf()
+    {
+        $products = Product::all();
+        $pdf = PDF::loadView('backend.products.pdf',['products'=>$products]);
+        return $pdf->download('data.pdf');
     }
 }

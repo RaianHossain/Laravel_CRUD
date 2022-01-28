@@ -59,6 +59,7 @@ Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])-
 Route::get('trashed-products', [ProductController::class, 'showTrashed'])->name('products.trash');
 Route::get('trashed-products/{product}/restore', [ProductController::class, 'restore'])->name('products.restore');
 Route::delete('trashed-products/{product}/parmanent-delete', [ProductController::class, 'delete'])->name('products.delete');
+Route::get('/products/pdf', [ProductController::class, 'downloadPdf'])->name('products.pdf');
 Route::resource('products', ProductController::class);
 
 // Route::get('/products', [ProductController::class, 'index'])->name('products.index');

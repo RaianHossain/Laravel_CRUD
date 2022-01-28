@@ -18,6 +18,7 @@
             <i class="fas fa-table me-1"></i>
             Products <a class="btn btn-sm btn-info" href="{{ route('products.create') }}">Add New</a>
             <a class="btn btn-sm btn-info" href="{{ route('products.trash') }}">Trash List</a>
+            <a class="btn btn-sm btn-info" href="{{ route('products.pdf') }}">Downlaod PDF</a>
         </div>
         <div class="card-body">
 
