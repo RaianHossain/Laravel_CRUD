@@ -17,8 +17,9 @@
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
             Products <a class="btn btn-sm btn-info" href="{{ route('products.create') }}">Add New</a>
-            <a class="btn btn-sm btn-info" href="{{ route('products.trash') }}">Trash List</a>
-            <a class="btn btn-sm btn-info" href="{{ route('products.pdf') }}">Downlaod PDF</a>
+            <a class="btn btn-sm btn-primary" href="{{ route('products.trash') }}">Trash List</a>
+            <a class="btn btn-sm btn-success" href="{{ route('products.pdf') }}">Downlaod PDF</a>
+            <a class="btn btn-sm btn-danger" href="{{ route('products.export') }}">Downlaod Excel</a>
         </div>
         <div class="card-body">
 

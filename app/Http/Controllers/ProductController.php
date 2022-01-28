@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Exports\ProductsExport;
 use App\Models\Product;
 use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Http\Request;
 use PDF;
+use Excel;
 
 class ProductController extends Controller
 {
@@ -135,5 +138,10 @@ class ProductController extends Controller
         $products = Product::all();
         $pdf = PDF::loadView('backend.products.pdf',['products'=>$products]);
         return $pdf->download('data.pdf');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new ProductsExport, 'products.xlsx');
     }
 }
