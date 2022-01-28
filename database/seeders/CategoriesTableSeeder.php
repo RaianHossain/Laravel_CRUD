@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
@@ -27,5 +28,9 @@ class CategoriesTableSeeder extends Seeder
             'title' => 'Men',
             'description' => 'Men Fashion',
         ]);
+
+        Category::factory()
+            ->count(50)
+            ->create();
     }
 }

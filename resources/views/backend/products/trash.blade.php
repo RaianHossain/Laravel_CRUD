@@ -16,8 +16,8 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Products <a class="btn btn-sm btn-info" href="{{ route('products.create') }}">Add New</a>
-            <a class="btn btn-sm btn-info" href="{{ route('products.trash') }}">Trash List</a>
+            Products 
+            <a class="btn btn-sm btn-info" href="{{ route('products.index') }}">List</a>
         </div>
         <div class="card-body">
 
@@ -51,15 +51,15 @@
                         <td>{{ $product->qty }}</td>
                         <td>{{ $product->unit }}</td>
                         <td>
-                            <a class="btn btn-info btn-sm" href="{{ route('products.show', ['product'=> $product->id]) }}" >Show</a>
+                            <a class="btn btn-info btn-sm" href="{{ route('products.restore', ['product'=> $product->id]) }}" >Restore</a>
 
-                            <a class="btn btn-warning btn-sm" href="{{ route('products.edit', ['product'=> $product->id]) }}" >Edit</a>
+                            
 
-                            <form style="display:inline" action="{{ route('products.destroy', ['product' => $product->id]) }}" method="post">
+                            <form style="display:inline" action="{{ route('products.delete', ['product' => $product->id]) }}" method="post">
                                 @csrf
                                 @method('delete')
                                 
-                                <button onclick="return confirm('Are you sure want to delete ?')" class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                <button onclick="return confirm('Are you sure want to delete ?')" class="btn btn-sm btn-danger" type="submit">Permanent Delete</button>
                             </form>
                             
 

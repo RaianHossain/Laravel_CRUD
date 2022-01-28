@@ -107,4 +107,25 @@ class ProductController extends Controller
             // dd($e->getMessage());
         }
     }
+
+    public function showTrashed()
+    {
+        $products = Product::onlyTrashed()->get();
+        return view('backend.products.trash', ['products'=>$products]);
+    }
+
+    public function restore($id)
+    {
+        $product = Product::onlyTrashed()->findOrFail($id);
+        $product->restore();
+        return redirect()->route('products.trash')->withMessage('Successfully Restored');
+    }
+
+    public function delete($id)
+    {
+        $product = Product::onlyTrashed()->findOrFail($id);
+        $product->forceDelete();
+        return redirect()->route('products.trash')->withMessage('Permanently deleted');
+
+    }
 }
