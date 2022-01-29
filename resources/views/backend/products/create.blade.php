@@ -34,29 +34,11 @@
             <form action="{{ route('products.store') }}" enctype="multipart/form-data" method="post">
             
                 @csrf
-                <div class="form-floating mb-3 mb-md-0">
-                    <input name="title" class="form-control" id="inputTitle" type="text" placeholder="Enter your title" value="{{ old('title') }}">
-                    <label for="inputTitle">Title</label>
+                <x-backend.form.input name="title"/>
 
-                    @error('title')
-                    <span class="small text-danger">{{ $message }}</span>
-                    @enderror
+                <x-backend.form.textarea name="description" />
 
-                </div>
-
-                <div class="form-floating mt-3">
-                    <textarea name="description" class="form-control" id="inputDescription" placeholder="Description">
-                    {{ old('description') }}
-                    </textarea>
-                    <label for="inputDescription">Description</label>
-
-                    @error('description')
-                    <span class="small text-danger">{{ $message }}</span>
-                    @enderror
-
-                </div>
-
-                <div class="form-floating mb-3 mb-md-0 mt-3">
+                <!-- <div class="form-floating mb-3 mb-md-0 mt-3">
                     <input name="price" class="form-control" id="inputTitle" type="number" placeholder="Enter price" value="{{ old('price') }}">
                     <label for="inputTitle">Price</label>
 
@@ -64,9 +46,10 @@
                     <span class="small text-danger">{{ $message }}</span>
                     @enderror
 
-                </div>
+                </div> -->
+                <x-backend.form.input name="price" type="number" />
 
-                <div class="form-floating mb-3 mb-md-0 mt-3">
+                <!-- <div class="form-floating mb-3 mb-md-0 mt-3">
                     <input name="qty" class="form-control" id="inputTitle" type="number" placeholder="Enter quantity" value="{{ old('qty') }}">
                     <label for="inputTitle">QTY</label>
 
@@ -74,9 +57,10 @@
                     <span class="small text-danger">{{ $message }}</span>
                     @enderror
 
-                </div>
+                </div> -->
+                <x-backend.form.input name="qty" type="number" />
 
-                <div class="form-floating mb-3 mb-md-0 mt-3">
+                <!-- <div class="form-floating mb-3 mb-md-0 mt-3">
                     <input name="unit" class="form-control" id="inputTitle" type="text" placeholder="Enter unit" value="{{ old('unit') }}">
                     <label for="inputTitle">Unit</label>
 
@@ -84,17 +68,14 @@
                     <span class="small text-danger">{{ $message }}</span>
                     @enderror
 
-                </div>
+                </div> -->
+                <x-backend.form.input name="unit"/>
 
                 
 
                 
 
-                <div class="mt-4 mb-0">
-                    <button type="submit" class="btn btn-primary">
-                        Save
-                    </button>
-                </div>
+                <x-backend.form.button>Save</x-backend.form.button>
             </form>
         </div>
     </div>

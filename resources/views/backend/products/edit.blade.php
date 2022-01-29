@@ -34,29 +34,12 @@
             <form action="{{ route('products.update', ['product' => $product->id]) }}" method="post">
                 @csrf
                 @method('patch')
-                <div class="form-floating mb-3 mb-md-0">
-                    <input name="title" class="form-control" id="inputTitle" type="text" placeholder="Enter your title" value="{{ old('title', $product->title) }}">
-                    <label for="inputTitle">Title</label>
+                <x-backend.form.input name="title" :value="$product->title" />               
+                <x-backend.form.textarea name="description">
+                {{ $product->description }}
+                </x-backend.form.textarea>
 
-                    @error('title')
-                    <span class="small text-danger">{{ $message }}</span>
-                    @enderror
-
-                </div>
-
-                <div class="form-floating mt-3">
-                    <textarea name="description" class="form-control" id="inputDescription" placeholder="Description">
-                    {{ old('description', $product->description) }}
-                    </textarea>
-                    <label for="inputDescription">Description</label>
-
-                    @error('description')
-                    <span class="small text-danger">{{ $message }}</span>
-                    @enderror
-
-                </div>
-
-                <div class="form-floating mb-3 mb-md-0 mt-3">
+                <!-- <div class="form-floating mb-3 mb-md-0 mt-3">
                     <input name="price" class="form-control" id="inputTitle" type="number" placeholder="Enter price" value="{{ old('price', $product->price) }}">
                     <label for="inputTitle">Price</label>
 
@@ -64,9 +47,10 @@
                     <span class="small text-danger">{{ $message }}</span>
                     @enderror
 
-                </div>
+                </div> -->
+                <x-backend.form.input name="price" :value="$product->price" />
 
-                <div class="form-floating mb-3 mb-md-0 mt-3">
+                <!-- <div class="form-floating mb-3 mb-md-0 mt-3">
                     <input name="qty" class="form-control" id="inputTitle" type="number" placeholder="Enter qty" value="{{ old('qty', $product->qty) }}">
                     <label for="inputTitle">QTY</label>
 
@@ -74,9 +58,11 @@
                     <span class="small text-danger">{{ $message }}</span>
                     @enderror
 
-                </div>
+                </div> -->
 
-                <div class="form-floating mb-3 mb-md-0 mt-3">
+                <x-backend.form.input name="qty" :value="$product->qty" />
+
+                <!-- <div class="form-floating mb-3 mb-md-0 mt-3">
                     <input name="unit" class="form-control" id="inputTitle" type="text" placeholder="Enter unit" value="{{ old('unit', $product->unit) }}">
                     <label for="inputTitle">Unit</label>
 
@@ -84,15 +70,12 @@
                     <span class="small text-danger">{{ $message }}</span>
                     @enderror
 
-                </div>
+                </div> -->
+                <x-backend.form.input name="unit" :value="$product->unit" />
 
                 
 
-                <div class="mt-4 mb-0">
-                    <button type="submit" class="btn btn-primary">
-                        Save
-                    </button>
-                </div>
+                <x-backend.form.button>Update</x-backend.form.button>
             </form>
         </div>
     </div>
