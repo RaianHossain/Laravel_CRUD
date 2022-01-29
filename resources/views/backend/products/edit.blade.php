@@ -72,6 +72,8 @@
 
                 </div> -->
                 <x-backend.form.input name="unit" :value="$product->unit" />
+                <x-backend.form.input name="image" type="file" :value="$product->image"/>                
+
 
                 
 

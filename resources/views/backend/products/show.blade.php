@@ -25,6 +25,7 @@
             <p>Price: {{ $product->price }}</p>
             <p>QTY: {{ $product->qty }}</p>
             <p>Unit: {{ $product->unit }}</p>
+            <img src="{{ asset('storage/images/'.$product->image) }}" />
         </div>
     </div>
 

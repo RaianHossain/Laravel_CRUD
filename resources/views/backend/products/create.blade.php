@@ -71,7 +71,7 @@
                 </div> -->
                 <x-backend.form.input name="unit"/>
 
-                
+                <x-backend.form.input name="image" type="file" />
 
                 
 

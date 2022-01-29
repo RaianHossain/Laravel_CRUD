@@ -9,6 +9,7 @@ use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Http\Request;
 use PDF;
 use Excel;
+use Image;
 
 class ProductController extends Controller
 {
@@ -23,6 +24,15 @@ class ProductController extends Controller
         return view('backend.products.create');
     }
 
+    public function uploadImage($file)
+    {        
+        $fileName = time().'.'.$file->getClientOriginalExtension();
+        Image::make($file)
+                ->resize(200, 200)
+                ->save(storage_path().'/app/public/images/'.$fileName);
+        return $fileName;
+    }
+
     public function store(Request $request)
     {
         try {
@@ -33,20 +43,26 @@ class ProductController extends Controller
             // ]);
             // $imageName = request()->file('image')->store('storage/app/public/images');
             // dd($imageName);
+            $imageValidationRule = 'image|mimes:png,jpg,jpeg,gif|dimensions:min_width=100,min_height=200|max:100';
+            // dd($request->isMethod('post'));
+            if($request->isMethod('post')){
+                $imageValidationRule = 'required|'.$imageValidationRule;
+            }
             $request->validate([
                 'title'=> 'required|min:3|max:50|unique:categories,title',
                 'description' => 'required|min:10',
                 'price' => 'required',
                 'qty' => 'required',
                 'unit' => 'required',
-                
+                'image' => $imageValidationRule
             ]);
             Product::create([
                 'title' => $request->title,
                 'description' => $request->description,
                 'price' => $request->price,
                 'qty' => $request->qty,
-                'unit' => $request->unit
+                'unit' => $request->unit,
+                'image' => $this->uploadImage(request()->file('image'))
             ]);
 
             // $request->session()->flash('message', 'Task was successful!');
@@ -84,14 +100,19 @@ class ProductController extends Controller
                 
             ]);
 
-            $product->update([
+            $requestData = [
                 'title' => $request->title,
                 'description' => $request->description,
                 'price' => $request->price,
                 'qty' => $request->qty,
                 'unit' => $request->unit
-                
-            ]);
+            ];
+
+            if($request->hasFile('image')){
+                $requestData['image'] = $this->uploadImage(request()->file('image'));
+            }
+
+            $product->update($requestData);
 
             // $request->session()->flash('message', 'Task was successful!');
             return redirect()->route('products.index')->withMessage('Successfully Updated!');
