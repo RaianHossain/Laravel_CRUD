@@ -30,7 +30,17 @@
             </div>
             @endif
 
-            <table id="datatablesSimple">
+            <form action="{{ route('products.index') }}" method="get">
+                <select name="category_id" id="">
+                    <option value="">Select one</option>
+                    @foreach($categories as $category)
+                    <option value={{ $category->id }}>{{ $category->title }}</option>
+                    @endforeach
+                </select>
+                <button class="btn btn-primary" type="submit">Seacrh</button>
+            </form>
+
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Sl#</th>
@@ -39,6 +49,7 @@
                         <th>Price</th>
                         <th>QTY</th>
                         <th>Unit</th>
+                        <th>Category</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -52,6 +63,7 @@
                         <td>{{ $product->price }}</td>
                         <td>{{ $product->qty }}</td>
                         <td>{{ $product->unit }}</td>
+                        <td>{{ $product->category->title }}</td>
                         <td>
                             <a class="btn btn-info btn-sm" href="{{ route('products.show', ['product'=> $product->id]) }}" >Show</a>
 

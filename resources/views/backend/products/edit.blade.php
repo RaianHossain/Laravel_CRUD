@@ -34,6 +34,12 @@
             <form action="{{ route('products.update', ['product' => $product->id]) }}" method="post">
                 @csrf
                 @method('patch')
+                <select name="category_id" id="">
+                    <option value={{ $product->category->id }}>{{ $product->category->title }}</option>
+                    @foreach($categories as $category)
+                    <option value={{ $category->id }}>{{ $category->title }}</option>
+                    @endforeach
+                </select>
                 <x-backend.form.input name="title" :value="$product->title" />               
                 <x-backend.form.textarea name="description">
                 {{ $product->description }}

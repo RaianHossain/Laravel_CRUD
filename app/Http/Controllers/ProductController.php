@@ -4,24 +4,34 @@ namespace App\Http\Controllers;
 
 
 use App\Exports\ProductsExport;
+use App\Models\Category;
 use App\Models\Product;
 use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Http\Request;
 use PDF;
 use Excel;
 use Image;
+use PhpOffice\PhpSpreadsheet\Reader\Xls\RC4;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        
         $products = Product::latest()->get();
-        return view('backend.products.index', ['products'=> $products]);
+        $categories = Category::all();
+        
+        if(request()->has('category_id')){
+            $products= $products->where('category_id', request('category_id'));
+        }
+        return view('backend.products.index', ['products'=> $products, 'categories'=> $categories]);
+        
     }
 
     public function create()
     {
-        return view('backend.products.create');
+        $categories = Category::all();
+        return view('backend.products.create', compact('categories'));
     }
 
     public function uploadImage($file)
@@ -62,7 +72,8 @@ class ProductController extends Controller
                 'price' => $request->price,
                 'qty' => $request->qty,
                 'unit' => $request->unit,
-                'image' => $this->uploadImage(request()->file('image'))
+                'image' => $this->uploadImage(request()->file('image')),
+                'category_id' => $request->category_id
             ]);
 
             // $request->session()->flash('message', 'Task was successful!');
@@ -82,8 +93,10 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        $categories = Category::all();
         return view('backend.products.edit', [
-            'product' => $product
+            'product' => $product,
+            'categories'=> $categories
         ]);
     }
 
@@ -105,7 +118,8 @@ class ProductController extends Controller
                 'description' => $request->description,
                 'price' => $request->price,
                 'qty' => $request->qty,
-                'unit' => $request->unit
+                'unit' => $request->unit,
+                'category_id'=> $request->category_id
             ];
 
             if($request->hasFile('image')){

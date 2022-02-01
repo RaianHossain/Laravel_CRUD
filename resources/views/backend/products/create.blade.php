@@ -34,6 +34,14 @@
             <form action="{{ route('products.store') }}" enctype="multipart/form-data" method="post">
             
                 @csrf
+
+                <select name="category_id" id="">
+                    <option value="">Select</option>
+                    @foreach ($categories as $category)
+                    <option value={{ $category->id }}>{{ $category->title }}</option>
+                    @endforeach
+                </select>
+
                 <x-backend.form.input name="title"/>
 
                 <x-backend.form.textarea name="description" />
